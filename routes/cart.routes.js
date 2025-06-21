@@ -9,10 +9,10 @@ cartRouter.get("/", async (req, res) => {
 });
 
 cartRouter.get("/:id", async (req, res) => {
-  const {id} = req.params;
-  const data = await CartModel.find({id});
+  const { id } = req.params;
+  const data = await CartModel.find({ id });
   res.send(data);
-})
+});
 
 cartRouter.post("/", async (req, res) => {
   const newItem = await new CartModel(req.body);
@@ -20,7 +20,10 @@ cartRouter.post("/", async (req, res) => {
     if (err) {
       res
         .status(500)
-        .send({ message: "Error occured while adding cart item to Database", data });
+        .send({
+          message: "Error occured while adding cart item to Database",
+          data,
+        });
     } else {
       res
         .status(201)
@@ -29,8 +32,8 @@ cartRouter.post("/", async (req, res) => {
   });
 });
 cartRouter.delete("/", async (req, res) => {
-	await CartModel.remove();
-	res.send("Deleted successfully");
+  await CartModel.remove();
+  res.send("Deleted successfully");
 });
 cartRouter.delete("/:itemid", async (req, res) => {
   const id = req.params.itemid;
@@ -46,6 +49,3 @@ cartRouter.put("/:itemid", async (req, res) => {
 });
 
 module.exports = cartRouter;
-
-
-	
